@@ -1,5 +1,5 @@
 import { test as baseTest } from '@playwright/test';
-import userData from '../test-data/userdetails.json';
+import userData from '../test-data/userDetails.json';
 
 type UserDataFixture = {
   userData: typeof userData;
