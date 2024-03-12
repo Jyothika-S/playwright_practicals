@@ -1,13 +1,13 @@
 import { expect, test } from '@playwright/test';
 
 let userId : string;
-let username: string;
 let isbn: string;
 
-test("create user", async ({ request }) => {
+test.describe('user', () => {
+test.beforeEach("create user", async ({ request }) => {
     const response = await request.post('https://demoqa.com/Account/v1/User', {
         data: {
-            "userName": "thommu",
+            "userName": "alphya",
             "password": "Tomiii12!"
         }
     });
@@ -16,7 +16,41 @@ test("create user", async ({ request }) => {
     expect(response.ok()).toBeTruthy();
 
     const responseUser = await response.json();
-    console.log('responseUser: ', responseUser);
+    userId = responseUser.userID;
+    console.log('userId: ', userId);
+});
+
+//authorize
+// test("authorize user", async ({ request }) => {
+//     const response = await request.post('https://demoqa.com/Account/v1/Authorized', {
+//         data: {
+//             "userName": "alphy",
+//             "password": "Tomiii12!"
+//         }
+//     });
+
+//     expect(response.status()).toBe(201);
+//     expect(response.ok()).toBeTruthy();
+
+//     const authorizeUser = await response.json();
+//     console.log('responseUser: ', authorizeUser);
+// });
+
+//token generation
+// test("token generation", async ({ request }) => {
+//     const response = await request.post('https://demoqa.com/Account/v1/GenerateToken', {
+//         data: {
+//             "userName": "alphy",
+//             "password": "Tomiii12!"
+//         }
+//     });
+
+//     expect(response.status()).toBe(201);
+//     expect(response.ok()).toBeTruthy();
+
+//     const user = await response.json();
+//     console.log('responseUser: ', user);
+// });
 });
 
 // GET API Request
@@ -32,9 +66,10 @@ test('API Get request - get all books', async({request}) =>{
 
 })
 
-//post
-// test('create book', async ({ request }) => {
+//create book
+// test('add book', async ({ request }) => {
 //     const response = await request.post('https://demoqa.com/BookStore/v1/Books', {
+        
 //         data: {
 //             "userId": userId,
 //             "collectionOfIsbns": [
@@ -42,9 +77,9 @@ test('API Get request - get all books', async({request}) =>{
 //                     "isbn": isbn
 //                 }
 //             ]
-//         }
+//         },
 //     });
-
+//     console.log('userId from post:', userId);
 //     expect(response.status()).toBe(201);
 //     expect(response.ok()).toBeTruthy();
 
@@ -52,34 +87,10 @@ test('API Get request - get all books', async({request}) =>{
 //     console.log('response body:', responseBody);
 // });
 
-
-//POST API request
-// test('API Post request', async ({request}) =>{
-//     const response = await request.post('https://demoqa.com/BookStore/v1/Books',{
-//         data:{
-//             "books": [
-//                 {
-//                   "userId": userId,
-//                   "username": username,
-//                   "isbn": "9781449331810",
-//                   "title": "Harry potter",
-//                   "subTitle": "And the philosophers stone",
-//                   "author": "J.K. Rowling",
-//                   "publish_date": "2020-06-04T08:48:39.000Z",
-//                   "publisher": "penguin",
-//                   "pages": 300,
-//                   "description": "Magic",
-//                   "website": "https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone"
-//                 }
-//               ]
-//         }
-//     })
-//     // response code assertion - validate status code
-//     expect(response.status()).toBe(201);
-
-//     const resdata = await response.text();
-//     expect(resdata).toContain('Harry potter');
+// delete user
+// test('delete user', async ({ request }) => {
     
-//     // parsing json response data
-//     console.log("response data - ", await response.json());
-// })
+//     const response = await request.delete(`https://demoqa.com/Account/v1/User/${userId}`);
+
+//     expect(response.status()).toBe(204);
+// });
