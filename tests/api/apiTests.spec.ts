@@ -3,12 +3,13 @@ import { expect, test } from '@playwright/test';
 let userId : string;
 let username: string;
 let isbn: string;
+let token: string;
 
 test.describe('user', () => {
-    test.beforeAll("create user", async ({ request }) => {
+    test("create user", async ({ request }) => {
         const response = await request.post('https://demoqa.com/Account/v1/User', {
             data: {
-                "userName": "john",
+                "userName": "anniee",
                 "password": "Tomiii12!"
             }
         });
@@ -26,7 +27,7 @@ test.describe('user', () => {
     test("token generation", async ({ request }) => {
         const response = await request.post('https://demoqa.com/Account/v1/GenerateToken', {
             data: {
-                "userName": "john",
+                "userName": "anniee",
                 "password": "Tomiii12!"
             }
         });
@@ -35,7 +36,7 @@ test.describe('user', () => {
         expect(response.ok()).toBeTruthy();
 
         const user = await response.json();
-        const token = user.token;
+        token = user.token;
         console.log("token: ", token)
         console.log('responseUser: ', user);
     });
@@ -44,11 +45,14 @@ test.describe('user', () => {
     test("authorize user", async ({ request }) => {
         const response = await request.post('https://demoqa.com/Account/v1/Authorized', {
             data: {
-                "userName": "john",
+                "userName": "anniee",
                 "password": "Tomiii12!"
             }
+            // headers: {
+            //     authorization: token
+            // }
         });
-
+        console.log("token from authorization: ", token);
         expect(response.status()).toBe(200);
         expect(response.ok()).toBeTruthy();
 
@@ -57,12 +61,12 @@ test.describe('user', () => {
     });
 
     //Delete user
-    test('delete user', async ({ request }) => {
-    console.log('userid: ', userId);
-        const response = await request.delete(`https://demoqa.com/Account/v1/User/${userId}`);
+    // test('delete user', async ({ request }) => {
+    // console.log('userid: ', userId);
+    //     const response = await request.delete(`https://demoqa.com/Account/v1/User/${userId}`);
     
-        expect(response.status()).toBe(204);
-    }); 
+    //     expect(response.status()).toBe(204);
+    // }); 
 
     // GET API Request
     test('API Get request - get all books', async({request}) =>{
