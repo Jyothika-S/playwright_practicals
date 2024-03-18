@@ -1,0 +1,9 @@
+{
+    "name": "puppy",
+    "age": 10,
+    "adopted": true,
+    "owners": [{
+        "name": "Jo",
+        "email": "doggos4u@gmail.com"
+    }]
+}

@@ -11,6 +11,7 @@
     "@types/node": "^20.11.24"
   },
   "dependencies": {
+    "jsonschema": "^1.4.1",
     "monocart-reporter": "^1.6.17"
   }
 }

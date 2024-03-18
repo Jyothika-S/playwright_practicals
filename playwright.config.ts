@@ -42,17 +42,32 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'],
+      screenshot: 'on',
+      video: 'on',
+      trace: 'on',
+      headless: false, 
+     },
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { 
+        ...devices['Desktop Firefox'],
+        screenshot: 'on',
+        video: 'on',
+        trace: 'on',
+      },
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: {
+        ...devices['Desktop Safari'],
+        screenshot: 'on',
+        video: 'on',
+        trace: 'on',
+        },
     },
 
     /* Test against mobile viewports. */
